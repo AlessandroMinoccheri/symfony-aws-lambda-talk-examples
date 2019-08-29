@@ -1,0 +1,33 @@
+version: "3.5"
+
+services:
+  web:
+    image: bref/fpm-dev-gateway
+    ports:
+      - '8000:80'
+    volumes:
+      - .:/var/task
+    depends_on:
+      - php
+    environment:
+      - HANDLER=public/index.php
+      - MY_CUSTOM_ENV_VARIABLES=custom-variable2
+  php:
+    image: bref/php-73-fpm-dev
+    volumes:
+      - .:/var/task:ro
+      - ./var/cache:/var/task/var/cache
+      - ./var/log:/var/task/var/log
+    environment:
+      - AWS_ENV_VARIABLES=your-variable
+      - AWS_S3_REGION=region
+      - AWS_S3_KEY=key
+      - AWS_S3_SECRET=secret
+      - AWS_S3_BUCKET_NAME=bucket
+
+
+
+
+
+
+
