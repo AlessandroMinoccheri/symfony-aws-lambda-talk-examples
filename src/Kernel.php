@@ -71,3 +71,4 @@ class Kernel extends BaseKernel
         return $this->getProjectDir().'/var/cache/'.$this->environment;
     }
 }
+

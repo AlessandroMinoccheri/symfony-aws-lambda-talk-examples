@@ -4,6 +4,8 @@ provider:
     name: aws
     region: eu-central-1
     runtime: provided
+    environment:
+        APP_ENV: prod
 
 plugins:
     - ./vendor/bref/bref
@@ -28,8 +30,8 @@ functions:
             AWS_S3_BUCKET_NAME: ${ssm:/symfony-bref/AWS_S3_BUCKET_NAME:1}
 
 
-    users:
-      handler: users.handler
+    documents:
+      handler: handler.php
       events:
         - s3:
             bucket: photos
@@ -40,6 +42,14 @@ functions:
         - s3:
             bucket: photos
             event: s3:ObjectRemoved:*
+
+
+
+
+
+
+
+
 
 
 

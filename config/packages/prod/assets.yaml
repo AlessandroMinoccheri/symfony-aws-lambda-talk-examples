@@ -1,0 +1,6 @@
+# config/prod/assets.yaml
+framework:
+  assets:
+    base_urls:
+      - 'https://YOUR_ASSETS_BUCKET_NAME.s3.amazonaws.com/'
+
