@@ -19,3 +19,8 @@
 ###< symfony/web-server-bundle ###
 
 .serverless/
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
