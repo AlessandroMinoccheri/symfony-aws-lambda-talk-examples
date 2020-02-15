@@ -2,6 +2,7 @@
 monolog:
     handlers:
         nested:
+            type: stream
             path: 'php://stderr'
 
 
