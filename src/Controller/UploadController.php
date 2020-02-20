@@ -4,9 +4,9 @@
 namespace App\Controller;
 
 
-use Psr\Log\LoggerInterface;
+use App\Service\S3Uploader;
+use App\UseCase\UploadPhoto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 
@@ -17,16 +17,23 @@ class UploadController extends AbstractController
      */
     public function getHomeAction(Request $request)
     {
-        echo getenv('AWS_ENV_VARIABLES');
-
         return $this->render('upload.html.twig');
     }
 
     /**
      * @Rest\Post("/upload")
      */
-    public function postHomeAction(Request $request)
+    public function postHomeAction(Request $request, S3Uploader $s3Uploader)
     {
+        try {
+            $uploadPhoto = new UploadPhoto($s3Uploader);
+            $file = $request->files->get('upload_file');
+
+            $uploadPhoto->execute($file);
+        } catch (\Exception $e) {
+            die($e->getMessage());
+        }
+
         return $this->render('upload.html.twig');
     }
 }

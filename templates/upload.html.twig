@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Upload Page{% endblock %}</title>
     {% block stylesheets %}
         <style>
             body {
@@ -131,9 +131,9 @@
     <div id="wrapper">
         <div id="container">
             <div id="title">
-                <h1>UPLOAD A FILE</h1>
+                <h1>UPLOAD A FILE TO S3 BUCKET</h1>
             </div>
-            <form method="post" name="upload">
+            <form method="post" name="upload" enctype="multipart/form-data">
                 <div>
                     <input type="file" name="upload_file">
                 </div>
