@@ -23,6 +23,10 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    App\Service\:
+        resource: '../src/Service'
+        autowire: false
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
@@ -36,3 +40,32 @@ services:
               credentials:
                   key: '%env(AWS_S3_KEY)%'
                   secret: '%env(AWS_S3_SECRET)%'
+
+    App\Service\S3Uploader:
+        public: true
+        class: App\Service\S3Uploader
+        arguments:
+            - '@acme.aws_s3.client'
+            - '%env(AWS_S3_BUCKET_NAME)%'
+            - '%env(AWS_S3_KEY)%'
+            - '%env(AWS_S3_REGION)%'
+            - '%env(AWS_S3_SECRET)%'
+
+    App\Service\S3Copier:
+        public: true
+        class: App\Service\S3Copier
+        arguments:
+            - '@acme.aws_s3.client'
+            - '%env(AWS_S3_BUCKET_NAME)%'
+            - '%env(AWS_S3_KEY)%'
+            - '%env(AWS_S3_REGION)%'
+            - '%env(AWS_S3_SECRET)%'
+
+    App\UseCase\RenamePhoto:
+        public: true
+        class: App\UseCase\RenamePhoto
+        arguments:
+            - '@logger'
+            - '@App\Service\S3Copier'
+
+

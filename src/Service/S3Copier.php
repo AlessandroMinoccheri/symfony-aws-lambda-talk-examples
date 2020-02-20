@@ -6,7 +6,7 @@ namespace App\Service;
 
 use Aws\S3\S3Client;
 
-class S3Uploader
+class S3Copier
 {
     /**
      * @var S3Client
@@ -43,10 +43,9 @@ class S3Uploader
         $this->secret = $secret;
     }
 
-    public function upload(string $path, string $contentType)
-    {
+    public function copy(string $source) {
         $s3Client = new S3Client([
-            'version'     => 'latest',
+            'version'     => '2006-03-01',
             'region'      => $this->region,
             'credentials' => [
                 'key'    => $this->key,
@@ -54,12 +53,12 @@ class S3Uploader
             ]
         ]);
 
-        $s3Client->putObject([
-            'Bucket'      => $this->bucket,
-            'Key'         => 'uploads/test.jpg',
-            'SourceFile'  => $path,
-            'ContentType' => $contentType
+        $s3Client->copyObject([
+            'Bucket'     => $this->bucket,
+            'Key'        => 'renamed-photos/' . date('Y-m-d') . '_'. date('H:i:s') . '.jpg',
+            'CopySource' => $this->bucket . '/' . $source,
         ]);
     }
+
 }
 

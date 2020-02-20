@@ -7,9 +7,10 @@
 /public/bundles/
 /var/
 /vendor/
+node_modules/
 ###< symfony/framework-bundle ###
 
-###> symfony/phpunit-bridge ###
+###> symfony/phpunit-bri    dge ###
 .phpunit
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
@@ -19,3 +20,8 @@
 ###< symfony/web-server-bundle ###
 
 .serverless/
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
